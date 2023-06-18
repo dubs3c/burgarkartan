@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-5">
+        <h1 style="padding: 1rem; font-size: 4rem; line-height: 5.5rem;">Jakten på den <span style="background: #F5A623; padding: 0.2rem; font-weight: bold; color:#E94B3C">bästa</span> burgaren börjar här!</h1>
+    </div>
+    <div class="col-md">
+        <div class="heroimg"></div>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="row" >
+    <div class="col" style="background: #E3E3E3; padding: 2rem; border-radius: 7px;">
+        <center>
+            <h3>Burgarkartan är din kulinariska GPS, guidande dig rakt till stjärnorna av stans hamburgarvärld. Med vår interaktiva karta och aptitväckande recensioner, blir jakten på den perfekta burgaren mer än en måltid – det blir ett äventyr!</h3>
+        </center>
+    </div>
+</div>
+
+<br />
+<br />
+
+
+<div class="row text-center">
+    <div class="col">
+        <h1>Utvalda Recensioner</h1>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md">
+        <h5>mikey</h5>
+        <h4>Super gott!</h4>
+       
+    </div>
+
+    <div class="col-md">
+        <h5>Linda</h5>
+        <h4>Bland det godaste jag någonsin ätit!</h4>
+        
+    </div>
+
+    <div class="col-md">
+        <h5>Rebecca</h5>
+        <h4>Kan inte sluta äta, så himla gott!!</h4>
+        
+    </div>
+
+    <div class="col-md">
+        <h5>Ellis</h5>
+        <h4>jag gillar den</h4>
+        
+    </div>
+
+</div>
+
+<br />
+<br />
+
+<!-- map -->
+<div class="row">
+    <div class="col-md">
+        <iframe
+        width="100%"
+        height="270"
+        style="border:0"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps/embed/v1/search?key=AIzaSyAtsW-C08J1KldnCW8Xl-jDORu8HH6uRzU&center=55.602990,13.001342&zoom=14&q=hamburgare+i+Malmö">
+        </iframe>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="row text-center">
+    <div class="col-md">
+        <a href="{% url 'places' %}"><button type="button" class="btn btn-dark"> <h2 style="font-weight:bold">Vad väntar du på? Bli medlem och låt jakten börja!!</h2></button></a>
+    </div>
+</div>
+
+<br />
+<br />
+
+{% endblock %}

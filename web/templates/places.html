@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<br />
+<br />
+
+<center>
+<h1 style="font-size: 4rem;">Burgarhak</h1>
+<h5>Nedan finner du de burgarhaken som våra användare har besökt och recenserat.</h5>
+</center>
+
+<br />
+<br />
+
+<div class="row gy-5">
+    {% for place in places %}
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{% static 'images/placeholder-burgare.png' %}" class="card-img-top" alt="hamburgare">
+                <div class="card-body">
+                <h3 class="card-text"><a href="{% url 'places-detail' place.place__id %}">{{place.place__name}}</a></h3>
+                <h5>{{place.place__location}}</h5>
+                <h5>Betyg: {{place.place__rating}}</h5>
+                <h5>Recensioner: {{place.reviews}}</h5>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

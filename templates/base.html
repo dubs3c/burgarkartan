@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <title>burgarkartan.se | Jakten börjar här</title>
+  </head>
+  <body class="{{ body_class }}">
+    <div class="container">
+        <div class="row navbg">
+          <div class="col align-self-start">
+              <h1><a href="/">Burgarkartan</a></h1>
+          </div>
+          <div class="col text-end">
+              <nav>
+                  <ul class="list-inline">
+                      <li class="list-inline-item"><a href="{% url 'places' %}">Platser</a></li>
+                      <li class="list-inline-item"><a href="{% url 'about' %}">Om kartan</a></li>
+                      <li class="list-inline-item"><a href="">Logga in</a></li>
+                  </ul>
+              </nav>
+          </div>
+        </div>
+        <hr />
+        {% block content %} {% endblock %}
+
+      <br />
+      <br />
+
+      <footer>
+        <hr />
+        <center>
+          <p>Made with <span style="color: #ff0018">♥</span> by <a href="https://github.com/dubs3c" target="_blank">@dubs3c</a></p>
+        </center>
+      </footer>
+
+    </div>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  </body>
+</html>

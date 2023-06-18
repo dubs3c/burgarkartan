@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<br />
+<div class="row">
+    <div class="col text-center">
+        <h1 style="font-size: rem; font-weight: bold">{{places.name}}</h1>
+        <br />
+        <p>{{places.location}}</p>
+        <h1>🍔🍔🍔🍔</h1>
+        <br />
+        <iframe
+        id="map"
+        width="100%"
+        height="450px"
+        style="border:0"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAtsW-C08J1KldnCW8Xl-jDORu8HH6uRzU&q={{places.location}}&zoom=19&language=se-SV">
+        </iframe>
+
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="row">
+
+
+    <div class="col-md">
+        {% for review in reviews %}
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h6><strong>{{review.author}}</strong></h6>
+                    <p>{{review.review}}</p>
+                    <p>Betyg: {{review.rating}}</p>
+                    <div style="width: 64px; height: 64px; background: grey; border: 1px solid #2d2d2d"></div>
+                </div>
+            </div>
+        </div>
+        <br />
+        {% endfor %}
+    </div>
+
+
+</div>
+
+
+
+
+<br />
+
+
+
+
+{% endblock %}

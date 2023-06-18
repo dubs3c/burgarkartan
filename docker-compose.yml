@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=burgare
+      - POSTGRES_PASSWORD=asdf
+      - POSTGRES_DB=burgarkartan
+    ports:
+      - "0.0.0.0:5432:5432"

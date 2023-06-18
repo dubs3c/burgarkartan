@@ -1,0 +1,29 @@
+
+body {
+    color: #323232;
+}
+
+.container {
+
+}
+
+.heroimg {
+    background: url("../../static/images/heroimg.png");
+    width: 100%;
+    height: 400px;
+    background-size: cover;
+    border-radius: 7px;
+}
+
+.navbg {
+    padding: 1em;
+}
+
+.navbg~hr {
+    margin-top: 0;
+}
+
+.navbg a {
+    text-decoration: none;
+    color: black;
+}
