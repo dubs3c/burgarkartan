@@ -7,9 +7,13 @@ body {
 
 }
 
+h1 {
+    font-weight: 800;
+}
+
 .heroimg {
     background: url("../../static/images/heroimg.png");
-    width: 100%;
+    width: 700px;
     height: 400px;
     background-size: cover;
     border-radius: 7px;
