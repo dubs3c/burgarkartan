@@ -22,7 +22,11 @@
                   <ul class="list-inline">
                       <li class="list-inline-item"><a href="{% url 'places' %}">Platser</a></li>
                       <li class="list-inline-item"><a href="{% url 'about' %}">Om kartan</a></li>
-                      <li class="list-inline-item"><a href="">Logga in</a></li>
+                      {% if not request.user.is_authenticated %}
+                        <li class="list-inline-item"><a href="{% url 'loggain' %}">Logga in</a></li>
+                      {% else %}
+                        <li class="list-inline-item"><a href="{% url 'loggaut' %}">Logout</a></li>
+                      {% endif %}
                   </ul>
               </nav>
           </div>

@@ -1,8 +1,6 @@
 from typing import Any
-from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views import generic
-from django.http import HttpResponse
 from django.db.models import Count
 
 from .models import Reviews, Places
@@ -13,6 +11,7 @@ def index(request):
 
 def about(request):
     return render(request, "about.html")
+
 
 class PlacesView(generic.ListView):
     queryset = Reviews.objects.values("place__id", "place__name", "place__rating", "place__location").annotate(reviews=Count("id"))
