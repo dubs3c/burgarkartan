@@ -6,8 +6,45 @@
 <div class="row">
     <div class="col text-center">
         <h1 style="font-size: rem; font-weight: bold">{{places.name}}</h1>
+        {% if request.user.is_authenticated %}
+            {% if request.user == places.created_by %}
+                <a class="btn btn-outline-primary btn-sm" href="#" role="button">Ändra</a>
+                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Ta bort
+                  </button>
+                  
+                <br />
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <form method="post" action="{% url 'places-delete' places.id %}">
+                    {% csrf_token %}
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Ta bort restaurang</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Är du säker på att du vill ta bort <strong>{{places.name}}</strong>?
+                             
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Stäng</button>
+                            <button type="submit" class="btn btn-danger">Jag är säker</button>
+                        </div>
+                    </div>
+                    </form>
+                    </div>
+                </div>
+  
+
+
+            {% endif %}
+        {% endif %}
         <br />
-        <p>{{places.location}}</p>
+        <h5>{{places.location}}</h5>
         <h1>🍔🍔🍔🍔</h1>
         <br />
         <iframe

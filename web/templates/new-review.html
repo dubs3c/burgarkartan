@@ -3,18 +3,63 @@
 {% block content %}
 {% load static %}
 
-<div class="row text-center">
-    <div class="col-md">
+<div class="row">
+    <div class="col-md-6">
         <h1>Skapa en recension</h1>
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" class="g-3">
             {% csrf_token %}
             {{ placesForm.non_field_errors }}
-            {{ placesForm.as_p }}
+            <div class="mb-3">
+                {{ placesForm.name.errors }}
+                <label for="{{ placesForm.name.id_for_label }}" class="form-label">Namn på burgarhak</label>
+                <input type="text" name="{{ placesForm.name.html_name }}" class="form-control" id="{{ placesForm.name.id_for_label }}" required>   
+            </div>
+
+            <div class="mb-3">
+                {{ placesForm.website.errors }}
+                <label for="{{ placesForm.website.id_for_label }}" class="form-label">Hemsida</label>
+                <input type="text" name="{{ placesForm.website.html_name }}" class="form-control" id="{{ placesForm.website.id_for_label }}" placeholder="">   
+            </div>
+
+
+            <div class="mb-3">
+                {% if placesForm.location.errors %}
+                    <label for="{{ placesForm.location.id_for_label }}" class="form-label" style="color: #d53343">Adress</label>
+                    <input type="text" name="{{ placesForm.location.html_name }}" class="form-control is-invalid" id="{{ placesForm.location.id_for_label }}" required>
+                    <div id="{{ placesForm.location.html_name }}-feedback" class="invalid-feedback">
+                        {% for error in placesForm.location.errors  %}
+                            {{error}}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <label for="{{ placesForm.location.id_for_label }}" class="form-label">Adress</label>
+                <input type="text" name="{{ placesForm.location.html_name }}" class="form-control" id="{{ placesForm.location.id_for_label }}" required>
+                {% endif %}
+            </div>
+              
             {{ reviewsForm.non_field_errors }}
-            {{ reviewsForm.as_p }}
+            <div class="mb-3">
+                {{ reviewsForm.review.errors }}
+                <label for="{{ reviewsForm.review.id_for_label }}" class="form-label">Recension</label>
+                <textarea class="form-control" name="{{ reviewsForm.review.html_name }}" id="{{ reviewsForm.review.id_for_label }}" rows="5" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                {{ reviewsForm.rating.errors }}
+                <label for="{{ reviewsForm.rating.id_for_label }}" class="form-label">Betyg</label>
+                <input type="text" name="{{ reviewsForm.rating.html_name }}" class="form-control" id="{{ reviewsForm.rating.id_for_label }}" required>   
+            </div>
+
             {{ photosForm.non_field_errors }}
-            {{ photosForm.as_p }}
-            <input type="submit" value="Submit">
+            <div class="mb-3">
+                {{ photosForm.photo.errors }}
+                <label for="{{ photosForm.photo.id_for_label }}" class="form-label">Bilder</label>
+                <input class="form-control" name="{{ photosForm.photo.html_name }}"" type="file" id="{{ photosForm.photo.id_for_label }}" multiple>
+            </div>
+              
+
+        
+            <input type="submit" class="btn btn-dark" style="font-weight: bold;" value="Skicka">
         </form>
         
     </div>

@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, ImageField
 from .models import Reviews, Photos, Places
 
 
@@ -6,7 +6,7 @@ class PlaceForm(ModelForm):
     prefix = "places"
     class Meta:
         model = Places
-        fields = ["name", "website", "location"]
+        fields = ["name", "location"]
 
 
 class ReviewForm(ModelForm):
@@ -19,6 +19,7 @@ class ReviewForm(ModelForm):
 
 class PhotoForm(ModelForm):
     prefix = "photos"
+    photo = ImageField(required=False)
     class Meta:
         model = Photos
         fields = ["photo"]

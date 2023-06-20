@@ -6,9 +6,10 @@ from django.db.models import Avg
 
 class Places(models.Model):
     name = models.TextField()
-    website = models.TextField()
+    website = models.TextField(blank=True)
     location = models.TextField()
     rating = models.FloatField(default=0.0)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "places"

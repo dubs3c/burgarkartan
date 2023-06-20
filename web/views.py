@@ -38,28 +38,34 @@ class NewReview(LoginRequiredMixin, generic.CreateView):
             
             if placeform.is_valid() and reviewForm.is_valid() and photoForm.is_valid():
                 reviewForm.instance.author = self.request.user
+                placeform.instance.created_by = self.request.user
                 
                 place = placeform.save(commit=False)
                 review = reviewForm.save(commit=False)
-                photo = photoForm.save(commit=False)
 
                 review.place = place
-                photo.review = review
-                
+
                 place.save()
                 review.save()
-                photo.save()
-                
-                return redirect('places-detail', pk=place.id)
-            
 
-            # If the forms are not valid render the page with the existing data
+                if len(photoForm.data) > 0:
+                    photo = photoForm.save(commit=False)
+                    photo.review = review
+                    photo.save()
+
+                return redirect('places-detail', pk=place.id)
+
             return render(request, self.template_name, {
                  'placesForm': placeform,
                  'reviewsForm': reviewForm,
                  'photosForm': photoForm,
-                 })
+                 }, status=400)
 
+
+class PlacesDeleteView(LoginRequiredMixin, generic.DeleteView):
+     model = Places
+     login_url = "/loggain"
+     success_url = "/platser"
 
 class PlacesView(generic.ListView):
     queryset = Reviews.objects.values("place__id", "place__name", "place__rating", "place__location").annotate(reviews=Count("id"))
