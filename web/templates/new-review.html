@@ -1,0 +1,25 @@
+
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="row text-center">
+    <div class="col-md">
+        <h1>Skapa en recension</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ placesForm.non_field_errors }}
+            {{ placesForm.as_p }}
+            {{ reviewsForm.non_field_errors }}
+            {{ reviewsForm.as_p }}
+            {{ photosForm.non_field_errors }}
+            {{ photosForm.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+        
+    </div>
+</div>
+
+
+
+{% endblock %}
