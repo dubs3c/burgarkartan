@@ -17,6 +17,7 @@ h1 {
     height: 400px;
     background-size: cover;
     border-radius: 7px;
+    border-radius: 135px;
 }
 
 .navbg {
@@ -30,4 +31,11 @@ h1 {
 .navbg a {
     text-decoration: none;
     color: black;
+}
+
+.teamwork-img {
+    border-top-left-radius: 100px;
+    border-bottom-right-radius: 150px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius: 7px;
 }
