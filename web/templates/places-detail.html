@@ -15,7 +15,6 @@
                   
                 <br />
 
-
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -38,9 +37,7 @@
                     </form>
                     </div>
                 </div>
-  
-
-
+                
             {% endif %}
         {% endif %}
         <br />
@@ -64,27 +61,25 @@
 <br />
 <br />
 
-<div class="row">
 
-
-    <div class="col-md">
-        {% for review in reviews %}
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h6><strong>{{review.author}}</strong></h6>
-                    <p>{{review.review}}</p>
-                    <p>Betyg: {{review.rating}}</p>
-                    <div style="width: 64px; height: 64px; background: grey; border: 1px solid #2d2d2d"></div>
-                </div>
-            </div>
+    {% for review in reviews %}
+    <div class="row">
+        <div class="col-md-1">
+            <div style="width: 96px; height: 96px; border-radius: 100px; background: rgb(168, 187, 229); border: 1px solid #426e95"></div>
+        </div>
+        <div class="col-md">
+            {% if review.author.first_name %}
+                <h6><strong>{{review.author.first_name}}</strong></h6>
+            {% else %}
+                <h6><strong>{{review.author}}</strong></h6>
+            {% endif %}
+            <p>{{review.review}}</p>
+            <p>Betyg: {{review.rating}}</p>
         </div>
         <br />
-        {% endfor %}
     </div>
-
-
-</div>
+    <br />
+    {% endfor %}
 
 
 
