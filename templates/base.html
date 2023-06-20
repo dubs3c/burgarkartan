@@ -26,6 +26,7 @@
                         </li>
                     {% endif %}
                     <li class="list-inline-item"><a href="{% url 'places' %}">Platser</a></li>
+                    <li class="list-inline-item"><a href="#">Min profil</a></li>
                     <li class="list-inline-item"><a href="{% url 'about' %}">Om kartan</a></li>
                     {% if not request.user.is_authenticated %}
                         <li class="list-inline-item"><a href="{% url 'loggain' %}">Logga in</a></li>
