@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" class="g-3">
+        {% csrf_token %}
+
+        <div class="mb-3 row">
+            <label for="username" class="col-sm-3 col-form-label">Användarnamn:</label>
+            <div class="col-sm-9">
+                <input type="text" readonly class="form-control-plaintext" id="username" value="{{ request.user.username }}">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="staticEmail" class="col-sm-3 col-form-label">Email:</label>
+            <div class="col-sm-9">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ request.user.email }}">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            {% if form.first_name.errors %}
+                <label for="{{ form.first_name.id_for_label }}" class="col-sm-3 col-form-label" style="color: #d53343">Förnamn:</label>
+                <div class="col-sm-9">
+                    <input type="text" name="{{ form.first_name.html_name }}" class="form-control is-invalid" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value }}">
+                    <div id="{{ form.first_name.html_name }}-feedback" class="invalid-feedback">
+                        {% for error in form.first_name.errors  %}
+                            {{error}}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+
+            <label for="{{ form.first_name.id_for_label }}" class="col-sm-3 col-form-label">Förnamn:</label>
+            <div class="col-sm-9">
+                <input type="text" name="{{ form.first_name.html_name }}" class="form-control" id="{{ form.first_name.id_for_label }}" value="{{ form.first_name.value }}">
+            </div>
+
+            {% endif %}
+        </div>
+
+        <div class="mb-3 row">
+            {% if form.last_name.errors %}
+                <label for="{{ form.last_name.id_for_label }}" class="col-sm-3 col-form-label" style="color: #d53343">Efternamn:</label>
+                <input type="text" name="{{ form.last_name.html_name }}" class="form-control is-invalid" id="{{ form.last_name.id_for_label }}" value="{{ form.last_name.value }}">
+                <div id="{{ form.last_name.html_name }}-feedback" class="invalid-feedback">
+                    {% for error in form.last_name.errors  %}
+                        {{error}}
+                    {% endfor %}
+                </div>
+            {% else %}
+
+            <label for="{{ form.last_name.id_for_label }}" class="col-sm-3 col-form-label">Efternamn:</label>
+            <div class="col-sm-9">
+                <input type="text" name="{{ form.last_name.html_name }}" class="form-control" id="{{ form.last_name.id_for_label }}" value="{{ form.last_name.value }}">
+            </div>
+
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm" name="submit">Uppdatera</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

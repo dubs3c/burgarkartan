@@ -3,9 +3,10 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from django.db.models import Count
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 
-from .models import Reviews, Places
-from .forms import ReviewForm, PlaceForm, PhotoForm
+from .models import Reviews, Places, Photos
+from .forms import ReviewForm, PlaceForm, PhotoForm, ProfileForm
 
 
 def index(request):
@@ -80,4 +81,30 @@ class PlacesDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
             context["reviews"] = Reviews.objects.filter(place=self.kwargs['pk'])
+            context["photos"] = Photos.objects.filter(review__place=self.kwargs['pk'])
             return context
+    
+class ProfileView(LoginRequiredMixin, generic.FormView):
+    login_url = "/loggain"
+    model = User
+    form_class = ProfileForm
+    template_name = "profile.html"
+    success_url = "/profile"
+
+    def get_initial(self):
+        """Return the initial data to use for forms on this view."""
+        return {
+             "last_name": self.request.user.last_name,
+             "first_name": self.request.user.first_name,
+             "email": self.request.user.email
+        }
+    
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        print(form)
+        if form.is_valid():
+            f = ProfileForm(data=request.POST, instance=request.user)
+            f.save()
+            return redirect('profile')
+        
+        return render(request, self.template_name, {'form': form,}, status=400)

@@ -37,7 +37,6 @@
                     </form>
                     </div>
                 </div>
-                
             {% endif %}
         {% endif %}
         <br />
@@ -60,29 +59,33 @@
 
 <br />
 <br />
-
-
-    {% for review in reviews %}
-    <div class="row">
-        <div class="col-md-1">
-            <div style="width: 96px; height: 96px; border-radius: 100px; background: rgb(168, 187, 229); border: 1px solid #426e95"></div>
-        </div>
-        <div class="col-md">
-            {% if review.author.first_name %}
-                <h6><strong>{{review.author.first_name}}</strong></h6>
-            {% else %}
-                <h6><strong>{{review.author}}</strong></h6>
-            {% endif %}
-            <p>{{review.review}}</p>
-            <p>Betyg: {{review.rating}}</p>
-        </div>
-        <br />
+{% for review in reviews %}
+<div class="row">
+    <div class="col-lg-1">
+        <div style="width: 72px; height: 72px; border-radius: 100px; background: rgb(168, 187, 229); border: 1px solid #426e95"></div>
     </div>
-    <br />
-    {% endfor %}
+    <div class="col-lg">
+        {% if review.author.first_name %}
+            <h6><strong>{{review.author.first_name}}</strong></h6>
+        {% else %}
+            <h6><strong>{{review.author}}</strong></h6>
+        {% endif %}
+        <p>{{review.review}}</p>
+        <p>Betyg: {{review.rating}}</p>
+    </div>
+    <div class="col-md">
+        {% for photo in photos %}
+            {% if photo.review == review %}
+                <img src="{{ photo.photo.url }}" width="150px"/>
+            {% endif %}
+        {% endfor %}
+    </div>
 
-
-
+</div>
+<br />
+<hr />
+<br />
+{% endfor %}
 
 <br />
 

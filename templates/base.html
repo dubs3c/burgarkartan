@@ -22,15 +22,14 @@
                   <ul class="list-inline">
                     {% if request.user.is_authenticated %}
                         <li class="list-inline-item"><a href="{% url 'new-review' %}">
-                            <button type="button" class="btn btn-warning">Skriv en recension</button></a>
+                            <button type="button" class="btn btn-warning"><strong>Skriv en recension</strong></button></a>
                         </li>
                     {% endif %}
                     <li class="list-inline-item"><a href="{% url 'places' %}">Platser</a></li>
-                    <li class="list-inline-item"><a href="#">Min profil</a></li>
-                    <li class="list-inline-item"><a href="{% url 'about' %}">Om kartan</a></li>
                     {% if not request.user.is_authenticated %}
                         <li class="list-inline-item"><a href="{% url 'loggain' %}">Logga in</a></li>
                     {% else %}
+                        <li class="list-inline-item"><a href="{% url 'profile' %}">Min profil</a></li>
                         <li class="list-inline-item"><a href="{% url 'loggaut' %}">Logout</a></li>
                     {% endif %}
                   </ul>
@@ -45,9 +44,17 @@
 
       <footer>
         <hr />
-        <center>
-          <p>Made with <span style="color: #ff0018">♥</span> by <a href="https://github.com/dubs3c" target="_blank">@dubs3c</a></p>
-        </center>
+        <div class="row">
+            <div class="col text-start">
+                <ul style="list-style: none;">
+                    <li class="list"><a href="{% url 'about' %}">Om kartan</a></li>
+                    <li class="list"><a href="#">Leaderboard</a></li>
+                </ul>
+            </div>
+            <div class="col text-end">
+                <p>Made with <span style="color: #ff0018">♥</span> by <a href="https://github.com/dubs3c" target="_blank">@dubs3c</a></p>
+            </div>
+        </div>
       </footer>
 
     </div>
