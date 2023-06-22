@@ -101,7 +101,6 @@ class ProfileView(LoginRequiredMixin, generic.FormView):
     
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        print(form)
         if form.is_valid():
             f = ProfileForm(data=request.POST, instance=request.user)
             f.save()
