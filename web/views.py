@@ -69,7 +69,11 @@ class PlacesDeleteView(LoginRequiredMixin, generic.DeleteView):
      success_url = "/platser"
 
 class PlacesView(generic.ListView):
-    queryset = Reviews.objects.values("place__id", "place__name", "place__rating", "place__location").annotate(reviews=Count("id"))
+    queryset = Reviews.objects.values(
+         "place__id",
+         "place__name",
+         "place__rating",
+         "place__location").annotate(reviews=Count("id"))
     template_name = "places.html"
     context_object_name = "places"
 
