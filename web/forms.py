@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 
 class PlaceForm(ModelForm):
     prefix = "places"
+
     class Meta:
         model = Places
         fields = ["name", "location"]
@@ -14,14 +15,16 @@ class PlaceForm(ModelForm):
 
 class ReviewForm(ModelForm):
     prefix = "reviews"
+
     class Meta:
         model = Reviews
         fields = ["review", "rating"]
-        
+
 
 class PhotoForm(ModelForm):
     prefix = "photos"
     photo = ImageField(required=False)
+
     class Meta:
         model = Photos
         fields = ["photo"]
@@ -33,7 +36,6 @@ class ProfileForm(ModelForm):
         fields = ["email", "first_name", "last_name"]
         exclude = ("email",)
 
-
     def clean(self):
         cleaned_data = super().clean()
         email = cleaned_data.get("email")
@@ -42,7 +44,4 @@ class ProfileForm(ModelForm):
             found = User.objects.get(email=email)
 
             if found:
-                raise ValidationError(
-                        "Tyvärr kan du inte byta till den email adressen"
-                    )
-            
+                raise ValidationError("Tyvärr kan du inte byta till den email adressen")
