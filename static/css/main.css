@@ -3,10 +3,6 @@ body {
     color: #323232;
 }
 
-.container {
-
-}
-
 h1 {
     font-weight: 800;
 }
@@ -33,9 +29,46 @@ h1 {
     color: black;
 }
 
-.teamwork-img {
+.rounded-border {
     border-top-left-radius: 100px;
     border-bottom-right-radius: 150px;
     border-top-right-radius: 7px;
     border-bottom-left-radius: 7px;
+}
+
+.testimonals-index h5 {
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+/* iPhone X - Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) {
+
+    .testimonals-index {
+        text-align: center;
+        margin: auto;
+    }
+
+    .testimonals-index h4 {
+        font-size: 1.6rem;
+    }
+
+    .teamwork-img {
+        width: 25rem;
+    }
+
+    .testimonals-img, .heroimg  {
+        width: 100%;
+    }
+
+    .how-does-it-work h4 {
+        margin-bottom: 2.5rem;
+    }
+
+    .how-does-it-work h4 span  {
+        margin: 0 0.5rem 2rem 0;
+    }
 }
