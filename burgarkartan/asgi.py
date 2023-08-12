@@ -1,5 +1,5 @@
 """
-ASGI config for hamburgarekartan project.
+ASGI config for burgarkartan project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

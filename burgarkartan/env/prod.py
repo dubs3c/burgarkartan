@@ -1,4 +1,4 @@
-from hamburgarekartan.settings import *
+from burgarkartan.settings import *
 
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 ALLOWED_DOMAINS = os.environ["ALLOWED_DOMAINS"].split(",")
