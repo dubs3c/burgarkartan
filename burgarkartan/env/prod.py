@@ -17,6 +17,9 @@ DJANGO_POSTGRESQL_USER = os.environ.get('POSTGRES_USER')
 DJANGO_POSTGRESQL_PASS = os.environ.get('POSTGRES_PASSWORD')
 DJANGO_POSTGRESQL_HOST = os.environ.get('POSTGRES_HOST')
 
+ALLOWED_HOSTS = ALLOWED_DOMAINS
+INTERNAL_IPS = ['127.0.0.1']
+
 DEBUG = False
 DJANGO_LOG_LEVEL = DEBUG
 MEDIA_ROOT = "/var/www/usercontent.burgarkartan.se/"
@@ -35,9 +38,3 @@ DATABASES = {
         },
     }
 }
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'media')
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
