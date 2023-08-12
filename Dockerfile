@@ -10,6 +10,7 @@ RUN apt update && apt upgrade -y && apt install -y \
   libxslt-dev \
   dos2unix \
   unzip \
+  procps \
   && useradd -m -s /bin/bash burgarkartan && pip install --upgrade pip
 
 USER burgarkartan
