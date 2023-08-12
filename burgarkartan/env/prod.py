@@ -24,7 +24,7 @@ DEBUG = False
 DJANGO_LOG_LEVEL = DEBUG
 MEDIA_ROOT = "/var/www/usercontent.burgarkartan.se/"
 MEDIA_URL = "/files/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'media')
 
 DATABASES = {
     'default': {
