@@ -104,7 +104,7 @@ class PlacesDetailView(generic.DetailView):
         return context
 
 
-    @method_decorator(login_required)
+    @method_decorator(login_required(login_url="/loggain"))
     def post(self, request, *args, **kwargs):
         reviewForm = self.form_class(request.POST)
         if reviewForm.is_valid():
