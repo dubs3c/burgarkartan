@@ -1,6 +1,6 @@
 from burgarkartan.settings import *
 
-SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", None)
 ALLOWED_DOMAINS = os.environ["ALLOWED_DOMAINS"].split(",")
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
@@ -18,7 +18,11 @@ DJANGO_POSTGRESQL_PASS = os.environ.get('POSTGRES_PASSWORD')
 DJANGO_POSTGRESQL_HOST = os.environ.get('POSTGRES_HOST')
 
 ALLOWED_HOSTS = ALLOWED_DOMAINS
-INTERNAL_IPS = ['127.0.0.1']
+#INTERNAL_IPS = ['127.0.0.1']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://burgarkartan.se'
+]
 
 DEBUG = False
 DJANGO_LOG_LEVEL = DEBUG
