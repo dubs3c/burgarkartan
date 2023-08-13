@@ -1,10 +1,10 @@
-from typing import Any, Optional
-from django.db import models
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.db.models import Count
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 from .models import Reviews, Places, Photos
 from .forms import ReviewForm, PlaceForm, PhotoForm, ProfileForm
@@ -103,7 +103,8 @@ class PlacesDetailView(generic.DetailView):
         context["form"] = self.form_class
         return context
 
-    
+
+    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         reviewForm = self.form_class(request.POST)
         if reviewForm.is_valid():
