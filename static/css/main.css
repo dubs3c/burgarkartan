@@ -45,6 +45,10 @@ h1 {
     color:lightseagreen;
 }
 
+.testimonals-index {
+    text-align: center;
+}
+
 .testimonals-index h5 {
     font-weight: bold;
     margin-top: 1rem;
