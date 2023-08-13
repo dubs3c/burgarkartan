@@ -1,15 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Avg
+from django.utils.text import slugify
 
+import uuid
 # Create your models here.
 
 
 class Places(models.Model):
     name = models.TextField()
+    slug = models.CharField(unique=True)
     website = models.TextField(blank=True)
     location = models.TextField()
-    rating = models.FloatField(default=0.0)
+    rating = models.DecimalField(default=0.0, max_digits=2, decimal_places=1)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -18,9 +21,15 @@ class Places(models.Model):
 
     def __str__(self):
         return f"{self.name}(rating={self.rating})"
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.location)
+        super().save(*args, **kwargs)
+
 
 
 class Reviews(models.Model):
+    publicId = models.UUIDField(auto_created=True, default=uuid.uuid4)
     place = models.ForeignKey(Places, on_delete=models.CASCADE)
     review = models.TextField()
     rating = models.IntegerField()

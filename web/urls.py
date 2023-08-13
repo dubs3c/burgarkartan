@@ -18,11 +18,14 @@ urlpatterns = [
     path("loggaut", auth_views.LogoutView.as_view(next_page="/"), name="loggaut"),
     path("nyrecension", views.NewReview.as_view(), name="new-review"),
     path("platser", views.PlacesView.as_view(), name="places"),
-    path("platser/<int:pk>", views.PlacesDetailView.as_view(), name="places-detail"),
+    path("platser/<slug:slug>", views.PlacesDetailView.as_view(), name="places-detail"),
     path(
         "platser/<int:pk>/delete",
         views.PlacesDeleteView.as_view(),
         name="places-delete",
     ),
+    path("platser/<int:pk>/nyrecension",
+         views.PlacesAddReview.as_view(),
+         name="places-review-add"),
     path("profile", views.ProfileView.as_view(), name="profile"),
 ]

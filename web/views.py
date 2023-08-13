@@ -1,4 +1,5 @@
-from typing import Any
+from typing import Any, Optional
+from django.db import models
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.db.models import Count
@@ -57,7 +58,7 @@ class NewReview(LoginRequiredMixin, generic.CreateView):
                 photo.review = review
                 photo.save()
 
-            return redirect("places-detail", pk=place.id)
+            return redirect("places-detail", slug=place.slug)
 
         return render(
             request,
@@ -71,15 +72,20 @@ class NewReview(LoginRequiredMixin, generic.CreateView):
         )
 
 
+# TODO: Make sure you can only delete places you have created
 class PlacesDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Places
     login_url = "/loggain"
     success_url = "/platser"
 
+    def get_queryset(self):
+        queryset = Places.objects.filter(created_by=self.request.user)
+        return queryset
+
 
 class PlacesView(generic.ListView):
     queryset = Reviews.objects.values(
-        "place__id", "place__name", "place__rating", "place__location"
+        "place__id", "place__name", "place__slug", "place__rating", "place__location"
     ).annotate(reviews=Count("id"))
     template_name = "places.html"
     context_object_name = "places"
@@ -87,13 +93,43 @@ class PlacesView(generic.ListView):
 
 class PlacesDetailView(generic.DetailView):
     model = Places
+    form_class = ReviewForm
     template_name = "places-detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["reviews"] = Reviews.objects.filter(place=self.kwargs["pk"])
-        context["photos"] = Photos.objects.filter(review__place=self.kwargs["pk"])
+        context["reviews"] = Reviews.objects.filter(place__slug=self.kwargs["slug"])
+        context["photos"] = Photos.objects.filter(review__place__slug=self.kwargs["slug"])
+        context["form"] = self.form_class
         return context
+
+    
+    def post(self, request, *args, **kwargs):
+        reviewForm = self.form_class(request.POST)
+        if reviewForm.is_valid():
+            place = Places.objects.get(id=self.kwargs["pk"])
+            if place:
+                r = reviewForm.save(commit=False)
+                r.author = request.user
+                r.place = place
+                r.save()
+                return redirect("places-detail", pk=place.id)
+            
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": self.form_class,
+            },
+            status=404,
+        )
+
+
+
+
+class PlacesAddReview(LoginRequiredMixin, PlacesDetailView):
+    login_url = "/loggain"
+    template_name = "places-detail.html"
 
 
 class ProfileView(LoginRequiredMixin, generic.FormView):

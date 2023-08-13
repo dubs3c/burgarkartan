@@ -59,6 +59,33 @@
 
 <br />
 <br />
+
+<div class="row">
+    <div class="col">
+        <form method="POST">
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+            <div class="mb-3">
+                {{ form.review.errors }}
+                <label for="{{ form.review.id_for_label }}" class="form-label">Recension</label>
+                <textarea class="form-control" name="{{ form.review.html_name }}" id="{{ form.review.id_for_label }}" rows="5" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                {{ form.rating.errors }}
+                <label for="{{ form.rating.id_for_label }}" class="form-label">Betyg <i>(1-5)</i></label>
+                <input type="number" pattern="[1-5]" name="{{ form.rating.html_name }}" class="form-control" id="{{ form.rating.id_for_label }}" required>   
+            </div>
+            <button type="submit" class="btn btn-primary btn-small">Publicera</button>
+        </form>
+    </div>
+</div>
+<br />
+<br />
+
+
+
 {% for review in reviews %}
 <div class="row">
     <div class="col-lg-1">
@@ -72,6 +99,10 @@
         {% endif %}
         <p>{{review.review}}</p>
         <p>Betyg: {{review.rating}}</p>
+        {% if review.author == request.user %}
+            <button type="submit" class="btn btn-primary btn-sm"><strong>Ändra</strong></button>
+            <button type="submit" class="btn btn-danger btn-sm"><strong>Radera</strong></button>
+        {% endif %}
     </div>
     {% if photos %}
         <div class="col-md">

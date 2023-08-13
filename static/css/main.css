@@ -36,6 +36,15 @@ h1 {
     border-bottom-left-radius: 7px;
 }
 
+#pac-input li {
+    list-style: none;
+    text-decoration: underline dotted;
+}
+
+#pac-input li:hover {
+    color:lightseagreen;
+}
+
 .testimonals-index h5 {
     font-weight: bold;
     margin-top: 1rem;

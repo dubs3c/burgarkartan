@@ -3,6 +3,49 @@
 {% block content %}
 {% load static %}
 
+<script>
+    let displaySuggestions;
+
+    function getAddress() {
+        e = document.getElementsByClassName("address-suggestion");
+
+        for(let i = 0; i < e.length; i++) {
+            e[i].addEventListener("click", function() {
+                value = e[i].innerText;
+                document.getElementById("{{ placesForm.location.id_for_label }}").value = value;
+                document.getElementById("pac-input").innerText = "";
+            })
+        }
+    }
+
+    function initService() {
+        displaySuggestions = function (predictions, status) {
+            if (status != google.maps.places.PlacesServiceStatus.OK || !predictions) {
+                alert(status);
+                return;
+            }
+    
+            predictions.forEach((prediction) => {
+                const li = document.createElement("li");
+
+                li.className = "address-suggestion"
+    
+                li.appendChild(document.createTextNode(prediction.description));
+                document.getElementById("pac-input").appendChild(li);
+                getAddress();
+            });
+        };
+    }
+    
+    function autocompleteme(){
+        const service = new google.maps.places.AutocompleteService();
+        value = document.getElementById("{{ placesForm.location.id_for_label }}").value;
+        service.getQueryPredictions({ input: value }, displaySuggestions);
+    }
+    
+    window.initService = initService;
+    </script>
+
 <div class="row">
     <div class="col-md-6">
         <h1>Skapa en recension</h1>
@@ -25,7 +68,8 @@
             <div class="mb-3">
                 {% if placesForm.location.errors %}
                     <label for="{{ placesForm.location.id_for_label }}" class="form-label" style="color: #d53343">Adress</label>
-                    <input type="text" name="{{ placesForm.location.html_name }}" class="form-control is-invalid" id="{{ placesForm.location.id_for_label }}" required>
+                    <input onfocus="autocompleteme()" type="text" name="{{ placesForm.location.html_name }}" class="form-control is-invalid" id="{{ placesForm.location.id_for_label }}" required>
+                    <div id="pac-input"></div>
                     <div id="{{ placesForm.location.html_name }}-feedback" class="invalid-feedback">
                         {% for error in placesForm.location.errors  %}
                             {{error}}
@@ -33,7 +77,8 @@
                     </div>
                 {% else %}
                 <label for="{{ placesForm.location.id_for_label }}" class="form-label">Adress</label>
-                <input type="text" name="{{ placesForm.location.html_name }}" class="form-control" id="{{ placesForm.location.id_for_label }}" required>
+                <input onchange="autocompleteme()" type="text" name="{{ placesForm.location.html_name }}" class="form-control" id="{{ placesForm.location.id_for_label }}" required>
+                <div id="pac-input"></div>
                 {% endif %}
             </div>
               
@@ -45,9 +90,18 @@
             </div>
 
             <div class="mb-3">
-                {{ reviewsForm.rating.errors }}
-                <label for="{{ reviewsForm.rating.id_for_label }}" class="form-label">Betyg</label>
-                <input type="text" name="{{ reviewsForm.rating.html_name }}" class="form-control" id="{{ reviewsForm.rating.id_for_label }}" required>   
+                {% if reviewsForm.rating.errors %}
+                <label for="{{ reviewsForm.rating.id_for_label }}" class="form-label" style="color: #d53343">Betyg <i>(1-5)</i></label>
+                <input type="number" pattern="[1-5]" name="{{ reviewsForm.rating.html_name }}" class="form-control is-invalid" id="{{ reviewsForm.rating.id_for_label }}" required>
+                <div id="{{ placesForm.location.html_name }}-feedback" class="invalid-feedback">
+                    {% for error in reviewsForm.rating.errors  %}
+                        {{error}}
+                    {% endfor %}
+                </div>
+                {% else %}
+                <label for="{{ reviewsForm.rating.id_for_label }}" class="form-label">Betyg <i>(1-5)</i></label>
+                <input type="number" pattern="[1-5]" name="{{ reviewsForm.rating.html_name }}" class="form-control" id="{{ reviewsForm.rating.id_for_label }}" required>   
+                {% endif %}
             </div>
 
             {{ photosForm.non_field_errors }}
@@ -63,7 +117,15 @@
         </form>
         
     </div>
+    <div class="col-md-6">
+
+    </div>
 </div>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtsW-C08J1KldnCW8Xl-jDORu8HH6uRzU&libraries=places&callback=initService">
+</script>
+
 
 
 
