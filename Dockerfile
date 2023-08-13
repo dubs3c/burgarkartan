@@ -12,11 +12,11 @@ RUN apt update && apt upgrade -y && apt install -y \
   unzip \
   procps \
   && groupadd -r -g 997 burgarkartan \
-  && useradd -r -u 998 -g burgarkartan burgarkartan \
+  && useradd -m -s /usr/sbin/nologin -u 998 -g burgarkartan burgarkartan \
   && pip install --upgrade pip
 
 USER burgarkartan
-RUN mkdir /home/burgarkartan/project
+RUN mkdir -p /home/burgarkartan/project
 WORKDIR /home/burgarkartan/project
 COPY --chown=burgarkartan . /home/burgarkartan/project/
 RUN pip install -r requirements.txt -U --user && echo "export PATH=$(python -c 'import site; print(site.USER_BASE + "/bin")'):$PATH" >> ~/.bashrc
