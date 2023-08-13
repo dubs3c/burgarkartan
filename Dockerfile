@@ -14,7 +14,7 @@ RUN apt update && apt upgrade -y && apt install -y \
   && useradd -m -s /bin/bash burgarkartan && pip install --upgrade pip
 
 #USER burgarkartan
-RUN mkdir /var/www/burgarkartan && chown -R www-data:www-data /var/www/burgarkartan
+RUN mkdir -p /var/www/burgarkartan && chown -R www-data:www-data /var/www/burgarkartan
 WORKDIR /var/www/burgarkartan
 COPY --chown=www-data . /var/www/burgarkartan/
 USER www-data
